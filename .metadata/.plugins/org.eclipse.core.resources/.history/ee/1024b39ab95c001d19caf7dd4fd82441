@@ -1,0 +1,28 @@
+/*
+ * global.h
+ *
+ *  Created on: Oct 24, 2022
+ *      Author: ADMIN
+ */
+
+#ifndef INC_GLOBAL_H_
+#define INC_GLOBAL_H_
+
+#include "Software_timer.h"
+#include "button.h"
+#include "main.h"
+
+#define INIT			1
+#define NORMAL_STATE 	2
+#define RESET_STATE		3
+#define INC_STATE   	4
+#define DEC_STATE   	5
+
+//thoi gian trang thai MODE
+#define MODE_TIME 	10000
+
+extern int status;
+extern int Counter;
+
+void set_Counter(int);
+#endif /* INC_GLOBAL_H_ */

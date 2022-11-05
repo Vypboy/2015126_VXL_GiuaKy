@@ -1,0 +1,2 @@
+State_Machine.c:12:6:fsm_simple_buttons_run	8	static
+State_Machine.c:134:6:fsm_long_press_run	8	static

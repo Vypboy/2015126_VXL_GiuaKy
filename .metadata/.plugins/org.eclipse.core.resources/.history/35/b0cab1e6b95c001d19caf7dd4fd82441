@@ -1,0 +1,18 @@
+/*
+ * global.c
+ *
+ *  Created on: Oct 24, 2022
+ *      Author: ADMIN
+ */
+
+#include "global.h"
+
+int status=0;
+
+int Time=0;
+int Counter = 0;
+
+void set_Time(int value){
+	Time=value;
+}
+

@@ -1,0 +1,55 @@
+/*
+ * State_Machine.c
+ *
+ *  Created on: Nov 5, 2022
+ *      Author: ADMIN
+ */
+#include "State_Machine.h"
+#include "global.h"
+#include "button.h"
+
+void fsm_simple_buttons_run(){
+	// TODO
+	switch(status){
+		case INIT:
+			Display_Init();
+			//chuyen trang thai ko dk
+			status=NORMAL_STATE;
+			setTimer1(Counter*1000);
+			break;
+		case NORMAL_STATE:
+			Display_Led_Red1();
+			//chuyen trang thai co dk
+			if(timer1_flag==1){
+				status_col=AUTO_GREEN;
+				setTimer1(Time_Auto_Green);
+			}
+			//trang thai mode 2
+			if(isButtonPressed(0)==1){
+				status=RESET_STATE;
+				setTimer1(MODE_TIME);
+			}
+
+			if(isButtonPressed(1)==1){
+				status=INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+
+			if(isButtonPressed(2)==1){
+				status=DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			break;
+		case RESET_STATE:
+
+			 break;
+		case INC_STATE:
+
+			 break;
+		case DEC_STATE:
+
+			 break;
+		default:
+			break;
+	}
+}

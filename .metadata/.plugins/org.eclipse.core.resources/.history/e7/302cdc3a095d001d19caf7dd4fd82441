@@ -1,0 +1,401 @@
+///*
+// * State_Machine.c
+// *
+// *  Created on: Nov 5, 2022
+// *      Author: ADMIN
+// */
+//#include "State_Machine.h"
+//#include "global.h"
+//#include "button.h"
+//#include "Display.h"
+//
+//void fsm_simple_buttons_run(){
+//	// TODO
+//	switch(status){
+//		case INIT:
+//			//chuyen trang thai ko dk
+//			status=NOR_STATE;
+//			setTimer1(1000);
+//			break;
+//		case NOR_STATE:
+//			//khi Counter=0 ma ko nhan nut nao khac ta van giu o trang thai NOR_STATE
+//			CountDown();
+//			//chuyen sang trang thai RESET_STATE khi nhan button RESET
+//			if(isButtonPressed(0)==1){
+//				status=RESET_STATE;
+//			}
+//			//chuyen sang trang thai INC_STATE khi nhan button INC
+//			if(isButtonPressed(1)==1){
+//				Inc_Counter();
+//
+//				status=INC_STATE;
+//				//moi lan nhan button INC va DEC se set lai timer 1 khoang thoi gian = MODE_TIME
+//				setTimer1(MODE_TIME);
+//			}
+//			//chuyen sang trang thai DEC_STATE khi nhan button DEC
+//			if(isButtonPressed(2)==1){
+//				Dec_Counter();
+//
+//				status=DEC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			//chuyen sang trang thai LONG_INC_STATE khi nhan giu button INC
+//			if(isButtonLongPressed(1)==1){
+//				Inc_Counter();
+//
+//				status=LONG_INC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			//chuyen sang trang thai LONG_DEC_STATE khi nhan giu button DEC
+//			if(isButtonLongPressed(2)==1){
+//				Dec_Counter();
+//
+//				status=LONG_DEC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			break;
+//		case RESET_STATE:
+//			Counter=0;
+//			status=INIT;
+//			break;
+//		case INC_STATE:
+//			if(timer1_flag==1){
+//				status= INIT;
+//			}
+//			if(isButtonPressed(0)==1){
+//				status=RESET_STATE;
+//			}
+//
+//			if(isButtonPressed(1)==1){
+//				Inc_Counter();
+//
+//				setTimer1(MODE_TIME);
+//			}
+//			if(isButtonPressed(2)==1){
+//				Dec_Counter();
+//				status=DEC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//
+//
+//			if(isButtonLongPressed(1)==1){
+//				Inc_Counter();
+//
+//				status=LONG_INC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			if(isButtonLongPressed(2)==1){
+//				Dec_Counter();
+//
+//				status=LONG_DEC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//
+//			break;
+//
+//		case DEC_STATE:
+//
+//			if(timer1_flag==1){
+//				status= INIT;
+//			}
+//			if(isButtonPressed(0)==1){
+//				status=RESET_STATE;
+//			}
+//			if(isButtonPressed(1)==1){
+//				Inc_Counter();
+//				status=INC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			if(isButtonPressed(2)==1){
+//				Dec_Counter();
+//				setTimer1(MODE_TIME);
+//			}
+//
+//
+//			if(isButtonLongPressed(1)==1){
+//				Inc_Counter();
+//
+//				status=LONG_INC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			if(isButtonLongPressed(2)==1){
+//				Dec_Counter();
+//
+//				status=LONG_DEC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			break;
+//		default:
+//			break;
+//	}
+//}
+//
+//
+//void fsm_long_press_run(){
+//	switch(status){
+//		case LONG_INC_STATE:
+//			if(isButtonLongPressed(1)==1){
+//				Inc_Counter();
+//				setTimer1(MODE_TIME);
+//			}
+//
+//			if(timer1_flag==1){
+//				status= INIT;
+//			}
+//
+//			//chuyen sang trang thai RESET_STATE khi nhan button RESET
+//			if(isButtonPressed(0)==1){
+//				status=RESET_STATE;
+//				//setTimer1(MODE_TIME);
+//			}
+//			//chuyen sang trang thai INC_STATE khi nhan button INC
+//			if(isButtonPressed(1)==1){
+//				Inc_Counter();
+//
+//				status=INC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			//chuyen sang trang thai DEC_STATE khi nhan button DEC
+//			if(isButtonPressed(2)==1){
+//				Dec_Counter();
+//
+//				status=DEC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			break;
+//		case LONG_DEC_STATE:
+//			if(isButtonLongPressed(2)==1){
+//				Dec_Counter();
+//				setTimer1(MODE_TIME);
+//			}
+//
+//			if(timer1_flag==1){
+//				status= INIT;
+//			}
+//
+//			//chuyen sang trang thai RESET_STATE khi nhan button RESET
+//			if(isButtonPressed(0)==1){
+//				status=RESET_STATE;
+//				//setTimer1(MODE_TIME);
+//			}
+//			//chuyen sang trang thai INC_STATE khi nhan button INC
+//			if(isButtonPressed(1)==1){
+//				Inc_Counter();
+//
+//				status=INC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			//chuyen sang trang thai DEC_STATE khi nhan button DEC
+//			if(isButtonPressed(2)==1){
+//				Dec_Counter();
+//
+//				status=DEC_STATE;
+//				setTimer1(MODE_TIME);
+//			}
+//			break;
+//		default:
+//			break;
+//	}
+//}
+//
+//
+//
+
+
+/*
+ * State_Machine.c
+ *
+ *  Created on: Nov 5, 2022
+ *      Author: ADMIN
+ */
+#include "State_Machine.h"
+#include "global.h"
+#include "button.h"
+#include "Display.h"
+
+void fsm_simple_buttons_run(){
+	// TODO
+	switch(status){
+		case INIT:
+			//chuyen trang thai ko dk
+			status=NOR_STATE;
+			setTimer1(1000);
+			break;
+		case NOR_STATE:
+			//khi Counter=0 ma ko nhan nut nao khac ta van giu o trang thai NOR_STATE
+			CountDown();
+			//chuyen sang trang thai RESET_STATE khi nhan button RESET
+			if(isButtonPressed(0)==1){
+				status=RESET_STATE;
+			}
+			//chuyen sang trang thai INC_STATE khi nhan button INC
+			if(isButtonPressed(1)==1){
+				status=INC_STATE;
+				//moi lan nhan button INC va DEC se set lai timer 1 khoang thoi gian = MODE_TIME
+				setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai DEC_STATE khi nhan button DEC
+			if(isButtonPressed(2)==1){
+				status=DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai LONG_INC_STATE khi nhan giu button INC
+			if(isButtonLongPressed(1)==1){
+				Inc_Counter();
+
+				status=LONG_INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai LONG_DEC_STATE khi nhan giu button DEC
+			if(isButtonLongPressed(2)==1){
+				Dec_Counter();
+
+				status=LONG_DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			break;
+		case RESET_STATE:
+			Counter=0;
+			status=INIT;
+			break;
+		case INC_STATE:
+			Inc_Counter();
+			if(timer1_flag==1){
+				status= INIT;
+			}
+			if(isButtonPressed(0)==1){
+				status=RESET_STATE;
+			}
+
+			if(isButtonPressed(1)==1){
+				Inc_Counter();
+
+				setTimer1(MODE_TIME);
+			}
+			if(isButtonPressed(2)==1){
+				Dec_Counter();
+				status=DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+
+
+			if(isButtonLongPressed(1)==1){
+				Inc_Counter();
+
+				status=LONG_INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			if(isButtonLongPressed(2)==1){
+				Dec_Counter();
+
+				status=LONG_DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+
+			break;
+
+		case DEC_STATE:
+			Dec_Counter();
+			if(timer1_flag==1){
+				status= INIT;
+			}
+			if(isButtonPressed(0)==1){
+				status=RESET_STATE;
+			}
+			if(isButtonPressed(1)==1){
+				Inc_Counter();
+				status=INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			if(isButtonPressed(2)==1){
+				Dec_Counter();
+				setTimer1(MODE_TIME);
+			}
+
+
+			if(isButtonLongPressed(1)==1){
+				Inc_Counter();
+
+				status=LONG_INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			if(isButtonLongPressed(2)==1){
+				Dec_Counter();
+
+				status=LONG_DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			break;
+		default:
+			break;
+	}
+}
+
+
+void fsm_long_press_run(){
+	switch(status){
+		case LONG_INC_STATE:
+			if(isButtonLongPressed(1)==1){
+				Inc_Counter();
+				setTimer1(MODE_TIME);
+			}
+
+			if(timer1_flag==1){
+				status= INIT;
+			}
+
+			//chuyen sang trang thai RESET_STATE khi nhan button RESET
+			if(isButtonPressed(0)==1){
+				status=RESET_STATE;
+				//setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai INC_STATE khi nhan button INC
+			if(isButtonPressed(1)==1){
+				Inc_Counter();
+
+				status=INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai DEC_STATE khi nhan button DEC
+			if(isButtonPressed(2)==1){
+				Dec_Counter();
+
+				status=DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			break;
+		case LONG_DEC_STATE:
+			if(isButtonLongPressed(2)==1){
+				Dec_Counter();
+				setTimer1(MODE_TIME);
+			}
+
+			if(timer1_flag==1){
+				status= INIT;
+			}
+
+			//chuyen sang trang thai RESET_STATE khi nhan button RESET
+			if(isButtonPressed(0)==1){
+				status=RESET_STATE;
+				//setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai INC_STATE khi nhan button INC
+			if(isButtonPressed(1)==1){
+				Inc_Counter();
+
+				status=INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai DEC_STATE khi nhan button DEC
+			if(isButtonPressed(2)==1){
+				Dec_Counter();
+
+				status=DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			break;
+		default:
+			break;
+	}
+}
+

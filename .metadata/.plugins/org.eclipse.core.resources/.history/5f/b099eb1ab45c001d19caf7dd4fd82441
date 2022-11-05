@@ -1,0 +1,19 @@
+/*
+ * global.c
+ *
+ *  Created on: Oct 24, 2022
+ *      Author: ADMIN
+ */
+
+#include "global.h"
+
+int status_col=0;
+
+//quan ly thoi gian cac den bang cac bien ben duoi
+int Counter = 0;
+
+
+void set_Counter(int value){
+	Counter=value;
+}
+

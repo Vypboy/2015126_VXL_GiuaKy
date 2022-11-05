@@ -1,0 +1,81 @@
+/*
+ * State_Machine.c
+ *
+ *  Created on: Nov 5, 2022
+ *      Author: ADMIN
+ */
+#include "State_Machine.h"
+#include "global.h"
+#include "button.h"
+#include "Display.h"
+
+void fsm_simple_buttons_run(){
+	// TODO
+	switch(status){
+		case INIT:
+			//Display_Init();
+			//chuyen trang thai ko dk
+			status=NOR_STATE;
+			setTimer1(Counter*1000);
+			break;
+		case NOR_STATE:
+			Run_CountDown_7SEG();
+
+			//khi Counter=0 ma ko nhan nut nao khac ta van giu o trang thai NOR_STATE
+			//chuyen trang thai co dk
+			if(timer1_flag==1){
+				status=NOR_STATE;
+				setTimer1(Counter*1000);
+			}
+			//chuyen sang trang thai RESET_STATE khi nhan button RESET
+			if(isButtonPressed(0)==1){
+				status=RESET_STATE;
+				setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai INC_STATE khi nhan button INC
+			if(isButtonPressed(1)==1){
+				status=INC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			//chuyen sang trang thai DEC_STATE khi nhan button DEC
+			if(isButtonPressed(2)==1){
+				status=DEC_STATE;
+				setTimer1(MODE_TIME);
+			}
+			break;
+		case RESET_STATE:
+			set_Counter(0);
+			status=NOR_STATE;
+			break;
+		case INC_STATE:
+			display7SEG(Counter);
+			Counter=(Counter+1)%10;
+
+			if(timer1_flag==1){
+				status= INIT;
+			}
+			if(isButtonPressed(1)==1){
+				Counter=(Counter+1)%10;
+				set_Counter(Counter);
+			}
+			status=NOR_STATE;
+			break;
+		case DEC_STATE:
+			display7SEG(Counter);
+			Counter--;
+			if(Counter==-1) Counter=9;
+
+
+			if(timer1_flag==1){
+				status= INIT;
+			}
+			if(isButtonPressed(2)==1){
+				Counter--;
+				if(Counter==-1) Counter=9;
+				set_Counter(Counter);
+			}
+			break;
+		default:
+			break;
+	}
+}

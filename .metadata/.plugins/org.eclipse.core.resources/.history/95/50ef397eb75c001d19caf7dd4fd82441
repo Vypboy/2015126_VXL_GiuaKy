@@ -1,0 +1,137 @@
+/*
+ * Display.c
+ *
+ *  Created on: Oct 25, 2022
+ *      Author: ADMIN
+ */
+
+#include "Display.h"
+#include "main.h"
+#include "global.h"
+#include "Software_timer.h"
+
+//=========================
+//	FOR DISPLAY COLORFUL LEDS
+//=========================
+
+//ham BkinkLed() de thuc hien nhap nhau 4 den cung mau trong trang thai MODE
+int status1=0;
+void Blink_Red_Led(enum TypeLed L){
+	if(timer5_flag==1){
+		setTimer3(1000);
+		if(status1==1){
+			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+		}
+		else{
+			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+		}
+		status1=1 - status1;
+	}
+}
+
+
+//=========================
+//	FOR 7SEG_DISPLAY
+//=========================
+
+void display7SEG(int num){
+	//outputs: SEG7 -> SEG0
+	//outputs with value of 0 (RESET) will be turn on
+	//outputs with value of 1 (SET) will be turn off
+	if (num == 0){ //100 0000
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin
+								|SEG3_Pin|SEG4_Pin|SEG5_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG6_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 1){ //111 1001
+		HAL_GPIO_WritePin(GPIOB, SEG1_Pin|SEG2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG3_Pin|SEG4_Pin
+								|SEG5_Pin|SEG6_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 2){ //010 0100
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG3_Pin
+								|SEG4_Pin|SEG6_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG2_Pin|SEG5_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 3){ //011 0000
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin
+								|SEG3_Pin|SEG6_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG4_Pin|SEG5_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 4){ //001 1001
+		HAL_GPIO_WritePin(GPIOB, SEG1_Pin|SEG2_Pin|SEG5_Pin
+								|SEG6_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG3_Pin|SEG4_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 5){ //001 0010
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG2_Pin|SEG3_Pin
+								|SEG5_Pin|SEG6_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG1_Pin|SEG4_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 6){ //000 0010
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG2_Pin|SEG3_Pin
+								|SEG4_Pin|SEG5_Pin|SEG6_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG1_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 7){ //111 1000
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG3_Pin|SEG4_Pin|SEG5_Pin
+								|SEG6_Pin, GPIO_PIN_SET);
+	}
+	else if (num == 8){ //000 0000
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin
+								|SEG3_Pin|SEG4_Pin|SEG5_Pin
+								|SEG6_Pin, GPIO_PIN_RESET);
+	}
+	else if (num == 9){ //001 0000
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin
+								|SEG3_Pin|SEG5_Pin|SEG6_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, SEG4_Pin, GPIO_PIN_SET);
+	}
+}
+
+
+void update7SEG(int index){
+	switch (index){
+		case 0:
+			//turn on first 7seg led only
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_SET);
+			break;
+		case 1:
+			//turn on second 7seg led only
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_SET);
+			break;
+		case 2:
+			//turn on third 7seg led only
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_SET);
+			break;
+		case 3:
+			//turn on fourth 7seg led only
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_RESET);
+			break;
+		default:
+			break;
+	}
+	//display number according to led_buffer and index
+	display7SEG(led_buffer[index]);
+}
+
+
+void Run_CountDown_7SEG(){
+	if (timer3_flag == 1){
+		setTimer3(1000);
+		display7SEG(Counter--);
+	}
+}

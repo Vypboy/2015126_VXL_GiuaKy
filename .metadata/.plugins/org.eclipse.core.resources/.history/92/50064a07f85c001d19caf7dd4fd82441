@@ -1,0 +1,21 @@
+/*
+ * global.c
+ *
+ *  Created on: Oct 24, 2022
+ *      Author: ADMIN
+ */
+
+#include "global.h"
+
+int status=0;
+
+int Counter = 0;
+
+void Inc_Counter(){
+	Counter=(Counter+1)%10;
+}
+void Dec_Counter(){
+	if(Counter>0) Counter--;
+	else if(Counter==0) Counter=9;
+}
+

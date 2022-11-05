@@ -1,0 +1,11 @@
+/*
+ * State_Machine.c
+ *
+ *  Created on: Nov 5, 2022
+ *      Author: ADMIN
+ */
+#include "State_Machine.h"
+
+void fsm_simple_buttons_run(){
+2 	// TODO
+3 }

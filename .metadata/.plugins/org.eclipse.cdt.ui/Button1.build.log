@@ -1,0 +1,24 @@
+20:18:28 **** Incremental Build of configuration Debug for project Button1 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/button.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/button.d" -MT"Core/Src/button.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/button.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Button1.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Tai lieu BK\File TN\Vi xu ly\FIle_GK\Button1\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Button1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Button1.elf
+ 
+arm-none-eabi-size   Button1.elf 
+arm-none-eabi-objdump -h -S  Button1.elf  > "Button1.list"
+arm-none-eabi-objcopy  -O ihex  Button1.elf  "Button1.hex"
+   text	   data	    bss	    dec	    hex	filename
+   9144	     24	   1744	  10912	   2aa0	Button1.elf
+arm-none-eabi-objcopy  -O binary  Button1.elf  "Button1.bin"
+Finished building: default.size.stdout
+ 
+Finished building: Button1.hex
+Finished building: Button1.bin
+ 
+ 
+Finished building: Button1.list
+ 
+
+20:18:29 Build Finished. 0 errors, 0 warnings. (took 657ms)
+

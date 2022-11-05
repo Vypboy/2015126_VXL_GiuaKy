@@ -1,0 +1,19 @@
+#ifndef INC_DISPLAY_H_
+#define INC_DISPLAY_H_
+
+//=========================
+//	FOR DISPLAY COLORFUL LEDS
+//=========================
+enum TypeLed {Red, Green, Yellow};
+void Blink_RED_Led(enum TypeLed);
+
+//=========================
+//	FOR 7SEG_DISPLAY
+//=========================
+extern int led_buffer[4];
+
+void display7SEG(int num);
+void updateClockBuffer();
+void Run_7SEG();
+
+#endif /* INC_DISPLAY_H_ */

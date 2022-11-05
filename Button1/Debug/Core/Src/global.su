@@ -1,0 +1,3 @@
+global.c:7:6:Inc_Counter	4	static
+global.c:11:6:Dec_Counter	4	static
+global.c:16:6:CountDown	8	static
